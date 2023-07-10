@@ -23,31 +23,34 @@ select.addEventListener('change' ,function(e){
 function calculateTotal(){
     const selectedSeats = container.querySelectorAll('.seat.selected');
 
-    const selectedSeatsArr = [];
+    const selectedSeatsArr = []; /*list elements*/
     const seatArr = [];
     
-    selectedSeats.forEach(function(seat){
-        selectedSeatsArr.push(seat);
+    selectedSeats.forEach(function(seat){ /*go over every element*/
+        selectedSeatsArr.push(seat);/*push elements*/
     });
 
-    seats.forEach(function(seat){
+    seats.forEach(function(seat){/*travel seats list*/ 
         seatArr.push(seat);
     });
-
-    let selectedSeatIndex = selectedSeatsArr.map(function(seat){
-        return seatArr.indexOf(seat);
+    /*list creating -index list which will be stored in local storage */
+    /**map method will give the list of choosen elements */
+    let selectedSeatIndexs = selectedSeatsArr.map(function(seat){
+        return seatArr.indexOf(seat);/*indexx nu iligili liste üz. getir, selectedSeatsIndex içine kopyalanır*/
     });
-
-    console.log(selectedSeatIndex);
-
+    /**print that list */
+    console.log(selectedSeatIndexs);
+    
     let selectedSeatCount = selectedSeats.length;
     //let price = select.value;
     count.innertText = selectedSeatCount;
     amount.innertText = selectedSeatCount * select.value;
 
-    saveToLocalStorage(selectedSeatIndex);
+    /**ouşturulan elemanları local storage a kaydetmek (save the generated elements to the local storage)*/
+    saveToLocalStorage(selectedSeatIndexs);
 }
 
+/**gather info from local storage */
 function getFromLocalStorage(){
     const selectedseats = JSON.parse(localStorage.getItem('selectedSeats'));
     const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
@@ -65,7 +68,7 @@ function getFromLocalStorage(){
 }
 
 
-function saveToLocalStorage(selectedSeatIndexs){
-    localStorage.setItem('selectedSeats', JSON.stringify(indexs));
-    localStorage.setItem('selectedMovieIndex',select.selectedIndex);
+function saveToLocalStorage(indexs){
+    localStorage.setItem('selectedSeats', JSON.stringify(indexs));/**gönderilen index nu. kaydet */
+    localStorage.setItem('selectedMovieIndex',select.selectedIndex);/**which film choosen */
 }
