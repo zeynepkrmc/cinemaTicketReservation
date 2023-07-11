@@ -1,6 +1,6 @@
 const container = document.querySelector('.container');
-const  count = documnet.getElementById('count');
-const amount = documnet.getElementById('amount');
+const  count = document.getElementById('count');
+const amount = document.getElementById('amount');
 const select = document.getElementById('movie');
 const seats = document.querySelectorAll('.seat:not(.reserved)');
 
@@ -9,7 +9,7 @@ getFromLocalStorage();
 calculateTotal();
 
 container.addEventListener('click',function(e){
-    if(e.target.classList.contains('seat') && !e.target.contains('reserved')){
+    if(e.target.classList.contains('seat') && !e.target.classList.contains('reserved')){
         e.target.classList.toggle('selected');
         calculateTotal();
 
@@ -35,19 +35,19 @@ function calculateTotal(){
     });
     /*list creating -index list which will be stored in local storage */
     /**map method will give the list of choosen elements */
-    let selectedSeatIndexs = selectedSeatsArr.map(function(seat){
+    let selectedSeatsIndexs = selectedSeatsArr.map(function(seat){
         return seatArr.indexOf(seat);/*indexx nu iligili liste üz. getir, selectedSeatsIndex içine kopyalanır*/
     });
     /**print that list */
-    console.log(selectedSeatIndexs);
+    console.log(selectedSeatsIndexs);
     
     let selectedSeatCount = selectedSeats.length;
     //let price = select.value;
-    count.innertText = selectedSeatCount;
-    amount.innertText = selectedSeatCount * select.value;
+    count.innerText = selectedSeatCount;
+    amount.innerText = selectedSeatCount * select.value;
 
     /**ouşturulan elemanları local storage a kaydetmek (save the generated elements to the local storage)*/
-    saveToLocalStorage(selectedSeatIndexs);
+    saveToLocalStorage(selectedSeatsIndexs);
 }
 
 /**gather info from local storage */
